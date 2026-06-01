@@ -1,17 +1,14 @@
 "use strict";
 
-import View from "./view.js";
-import { API_KEY, API_KEY_GEO, REQUEST_TIMEOUT } from "./config.js";
-
 const API_KEY = "fdcf37dd48aa42d3a02144556262805";
 const API_KEY_GEO = "9d12bb45-7f4f-4eea-a5b2-6a931e02dcaf";
 const REQUEST_TIMEOUT = 5000;
 
-// const container = document.querySelector(".container");
-// const weatherContainer = document.querySelector(".weather-container");
-// const searchInput = document.querySelector(".search-input");
-// const searchBtn = document.querySelector(".search-btn");
-// const geolocationBtn = document.querySelector(".btn-geolocation");
+const container = document.querySelector(".container");
+const weatherContainer = document.querySelector(".weather-container");
+const searchInput = document.querySelector(".search-input");
+const searchBtn = document.querySelector(".search-btn");
+const geolocationBtn = document.querySelector(".btn-geolocation");
 
 const renderWeather = function (weather) {
   const html = `
@@ -33,7 +30,7 @@ const renderWeather = function (weather) {
         </p>
       </div>
   `;
-  View.container.insertAdjacentHTML("beforeend", html);
+  container.insertAdjacentHTML("beforeend", html);
 };
 
 const clearWeather = function () {
@@ -48,7 +45,7 @@ const renderError = function (message) {
   const html = `
     <h4 class="city">${message}</h4>
   `;
-  View.container.insertAdjacentHTML("beforeend", html);
+  container.insertAdjacentHTML("beforeend", html);
 };
 
 const fetchJSON = async function (url, errorMessage = "Request failed") {
@@ -117,13 +114,14 @@ const createObject = function (data) {
 
 const searchLocation = async function () {
   try {
-    const city = View.searchInput.value;
+    const city = searchInput.value;
     const dataCity = await getJSONWeather(city);
     const weather = createObject(dataCity);
 
     clearWeather();
     renderWeather(weather);
   } catch (err) {
+    console.error(err);
     renderError(err.message);
   }
 };
@@ -144,9 +142,9 @@ const findLocation = async function () {
   }
 };
 
-View.searchBtn.addEventListener("click", searchLocation);
-View.geolocationBtn.addEventListener("click", findLocation);
-View.searchInput.addEventListener("keydown", function (e) {
+searchBtn.addEventListener("click", searchLocation);
+geolocationBtn.addEventListener("click", findLocation);
+searchInput.addEventListener("keydown", function (e) {
   if (e.key === "Enter") {
     searchLocation();
   }
@@ -161,5 +159,3 @@ const future = async function (city, date) {
   console.log(data);
 };
 future("voronezh", "2026-06-15"); // конечная дата, на 14 дней.
-
-View.showButton();

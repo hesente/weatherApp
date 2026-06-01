@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  padding: 50px;
+  background-color: #9eb2f7;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.search-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  width: 24px;
+  height: 24px;
+}
+
+.wind-icon {
+  width: 30px;
+}
+
+.temperature-icon {
+  width: 30px;
+}
+
+.text-center {
+  text-align: center;
+}

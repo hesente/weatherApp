@@ -11,6 +11,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  /* transition: all 1s ease; */
 }
 
 .container {
@@ -20,6 +21,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  box-shadow: 4px -1px 69px 3px rgba(0, 0, 0, 0.12);
 }
 
 .search-container {
@@ -27,9 +29,52 @@ body {
   justify-content: space-between;
 }
 
-.btn {
+.weather-data {
+  animation: fadeInWeather 1s ease-out;
+  box-shadow: 0px 16px 17px -7px rgba(34, 60, 80, 0.27) inset;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+@keyframes fadeInWeather {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn-icon {
   width: 24px;
   height: 24px;
+  box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.btn-icon:hover {
+  transform: scale(1.2);
+}
+
+.btn {
+  background: none;
+  border: 1px solid #9eb2f7;
+}
+
+.btn-geolocation {
+  background: none;
+  border: 1px solid #9eb2f7;
+  border-radius: 3px;
+}
+
+.search-input {
+  background-color: #f0f3ff;
+  margin: 0 5px;
+  box-shadow: 0px 0px 17px 3px rgba(34, 60, 80, 0.15);
 }
 
 .wind-icon {
@@ -41,5 +86,13 @@ body {
 }
 
 .text-center {
+  text-align: center;
+}
+
+.future-days {
+  box-shadow: 0px 16px 17px -7px rgba(34, 60, 80, 0.27) inset;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
   text-align: center;
 }

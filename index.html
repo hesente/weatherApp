@@ -20,14 +20,14 @@
   <body>
     <div class="container">
       <div class="search-container">
-        <button type="button" class="search-btn" aria-label="Поиск">
+        <button type="button" class="search-btn btn" aria-label="Поиск">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="search-icon btn"
+            class="search-icon btn-icon"
           >
             <path
               stroke-linecap="round"
@@ -39,14 +39,14 @@
 
         <input type="text" class="search-input" placeholder="Начните поиск !" />
 
-        <button class="btn-geolocation">
+        <button class="btn-geolocation btn">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="geolocation-icon btn"
+            class="geolocation-icon btn-icon"
           >
             <path
               stroke-linecap="round"
@@ -64,26 +64,45 @@
 
       <div class="weather-container">
         <!-- <div class="weather-data">
-        <h4 class="city text-center">Город</h4>
-        <img src="" alt="weather_icon" />
-        <p class="temperature">
-          <span
-            ><img
-              src="images/temperature-svgrepo-com.svg"
-              class="temperature-icon"
-          /></span>
-          1&deg;C <span class="weather">Мокрый снег</span>
-        </p>
-        <p class="wind">
-          <span
-            ><img src="images/wind-svgrepo-com.svg" class="wind-icon" /></span
-          >4 км/ч
-        </p>
-      </div> -->
+          <h4 class="city">Город</h4>
+          <img src="images/116.png" alt="weather_icon" />
+          <p class="temperature">
+            <span
+              ><img
+                src="images/temperature-svgrepo-com.svg"
+                class="temperature-icon"
+            /></span>
+            1&deg;C <span class="weather">Мокрый снег</span>
+          </p>
+          <p class="wind">
+            <span
+              ><img src="images/wind-svgrepo-com.svg" class="wind-icon" /></span
+            >4 км/ч
+          </p>
+        </div> -->
+      </div>
+
+      <div class="future-days">
+        <div class="next-day-card">
+          <p class="day">mon</p>
+          <img src="images/116.png" alt="weather-next" />
+          <p class="weather-next-day">14&#176;/10&#176;</p>
+        </div>
+
+        <div class="next-day-card">
+          <p class="day">mon</p>
+          <img src="images/116.png" alt="weather-next" />
+          <p class="weather-next-day">14&#176;/10&#176;</p>
+        </div>
+
+        <div class="next-day-card">
+          <p class="day">mon</p>
+          <img src="images/116.png" alt="weather-next" />
+          <p class="weather-next-day">14&#176;/10&#176;</p>
+        </div>
       </div>
     </div>
 
     <script type="module" src="js/script.js"></script>
-    <!-- <script src="scriptRefactor.js"></script> -->
   </body>
 </html>

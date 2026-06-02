@@ -9,11 +9,12 @@ const weatherContainer = document.querySelector(".weather-container");
 const searchInput = document.querySelector(".search-input");
 const searchBtn = document.querySelector(".search-btn");
 const geolocationBtn = document.querySelector(".btn-geolocation");
+const futureContainer = document.querySelector(".future-days");
 
 const renderWeather = function (weather) {
   const html = `
     <div class="weather-data">
-        <h4 class="city text-center">${weather.city}</h4>
+        <h4 class="city">${weather.city}</h4>
          <img src="${weather.weatherIcon}" alt="weather_icon" />
         <p class="temperature">
           <span
@@ -30,7 +31,7 @@ const renderWeather = function (weather) {
         </p>
       </div>
   `;
-  container.insertAdjacentHTML("beforeend", html);
+  weatherContainer.insertAdjacentHTML("beforeEnd", html);
 };
 
 const clearWeather = function () {
@@ -91,18 +92,22 @@ const getCityByCoords = async function (latitude, longitude) {
 };
 
 const getJSONWeather = async function (query) {
-  const data = await fetchJSON(
-    `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${query}&aqi=no`,
-    "Город не найден",
-  );
+  try {
+    const data = await fetchJSON(
+      `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${query}&aqi=no`,
+      "Город не найден",
+    );
 
-  console.log(data);
-  return data;
+    console.log(data);
+    return data;
+  } catch (err) {
+    renderError(err.message);
+  }
 };
 
 // getJSONWeather("moscow");
 
-const createObject = function (data) {
+const createObjectCurrent = function (data) {
   return {
     city: data.location.name,
     temperature: data.current.temp_c,
@@ -116,7 +121,7 @@ const searchLocation = async function () {
   try {
     const city = searchInput.value;
     const dataCity = await getJSONWeather(city);
-    const weather = createObject(dataCity);
+    const weather = createObjectCurrent(dataCity);
 
     clearWeather();
     renderWeather(weather);
@@ -133,7 +138,7 @@ const findLocation = async function () {
     const response = await getCityByCoords(latitude, longitude);
     const city = response.result.items[3].full_name;
     const dataCity = await getJSONWeather(city);
-    const weather = createObject(dataCity);
+    const weather = createObjectCurrent(dataCity);
 
     clearWeather();
     renderWeather(weather);
@@ -150,12 +155,28 @@ searchInput.addEventListener("keydown", function (e) {
   }
 });
 
-const future = async function (city, date) {
+const futureData = async function (city, days) {
   const response = await fetch(
-    `https://api.weatherapi.com/v1/future.json?key=${API_KEY}&q=${city}&dt=${date}`,
+    `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=${days}&aqi=no&alerts=no
+`,
   );
   const data = await response.json();
-  console.log(response);
-  console.log(data);
+  return data;
 };
-future("voronezh", "2026-06-15"); // конечная дата, на 14 дней.
+
+const pos = await futureData("Voronezh", 3);
+console.log(pos);
+
+const createObjectFuture = function (data) {
+  const objArr = [];
+  for (let i = 0; i < data.forecast.forecastday.length; i++) {
+    objArr.push({
+      date: data.forecast.forecastday[i].date,
+      maxTemp: data.forecast.forecastday[i].day.maxtemp_c,
+      minTemp: data.forecast.forecastday[i].day.mintemp_c,
+    });
+  }
+  return objArr;
+};
+
+console.log(createObjectFuture(pos));

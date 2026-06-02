@@ -34,6 +34,19 @@ const renderWeather = function (weather) {
   weatherContainer.insertAdjacentHTML("beforeEnd", html);
 };
 
+const renderFutureWeather = function (weather) {
+  weather.futureWeather.forEach(function (el, i) {
+    const html = `
+    <div class="next-day-card">
+          <p class="day">${el.date}</p>
+          <img src="${el.day.condition.icon}" alt="weather-next" />
+          <p class="weather-next-day">${el.day.maxtemp_c}&#176;/${el.day.mintemp_c}&#176;</p>
+        </div>
+    `;
+    futureContainer.insertAdjacentHTML("beforeend", html);
+  });
+};
+
 const clearWeather = function () {
   const oldWeather = document.querySelector(".weather-data");
   const oldError = document.querySelector(".city");
@@ -91,10 +104,10 @@ const getCityByCoords = async function (latitude, longitude) {
   );
 };
 
-const getJSONWeather = async function (query) {
+const getJSONWeather = async function (query, days = 3) {
   try {
     const data = await fetchJSON(
-      `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${query}&aqi=no`,
+      `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${query}&days=${days}&aqi=no&alerts=no`,
       "Город не найден",
     );
 
@@ -114,6 +127,7 @@ const createObjectCurrent = function (data) {
     windSpeed: data.current.wind_kph,
     weather: data.current.condition.text,
     weatherIcon: data.current.condition.icon,
+    futureWeather: data.forecast.forecastday,
   };
 };
 
@@ -122,9 +136,10 @@ const searchLocation = async function () {
     const city = searchInput.value;
     const dataCity = await getJSONWeather(city);
     const weather = createObjectCurrent(dataCity);
-
+    console.log(weather);
     clearWeather();
     renderWeather(weather);
+    renderFutureWeather(weather);
   } catch (err) {
     console.error(err);
     renderError(err.message);
@@ -142,6 +157,7 @@ const findLocation = async function () {
 
     clearWeather();
     renderWeather(weather);
+    renderFutureWeather(weather);
   } catch (err) {
     renderError(err.message);
   }
@@ -154,29 +170,3 @@ searchInput.addEventListener("keydown", function (e) {
     searchLocation();
   }
 });
-
-const futureData = async function (city, days) {
-  const response = await fetch(
-    `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=${days}&aqi=no&alerts=no
-`,
-  );
-  const data = await response.json();
-  return data;
-};
-
-const pos = await futureData("Voronezh", 3);
-console.log(pos);
-
-const createObjectFuture = function (data) {
-  const objArr = [];
-  for (let i = 0; i < data.forecast.forecastday.length; i++) {
-    objArr.push({
-      date: data.forecast.forecastday[i].date,
-      maxTemp: data.forecast.forecastday[i].day.maxtemp_c,
-      minTemp: data.forecast.forecastday[i].day.mintemp_c,
-    });
-  }
-  return objArr;
-};
-
-console.log(createObjectFuture(pos));

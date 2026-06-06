@@ -1,11 +1,11 @@
 {
   "dependencies": {
+    "dotenv": "^17.4.2",
     "parcel": "^2.16.4"
   },
   "name": "weather",
   "version": "1.0.0",
   "description": "",
-  "devDependencies": {},
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html"

@@ -1,8 +1,11 @@
 "use strict";
+import { API_KEY, API_KEY_GEO, REQUEST_TIMEOUT } from "./config.js";
 
-const API_KEY = "fdcf37dd48aa42d3a02144556262805";
-const API_KEY_GEO = "9d12bb45-7f4f-4eea-a5b2-6a931e02dcaf";
+/*
+const API_KEY = "your-api-key";
+const API_KEY_GEO = "your-api-key-geo";
 const REQUEST_TIMEOUT = 5000;
+*/
 
 const container = document.querySelector(".container");
 const weatherContainer = document.querySelector(".weather-container");
@@ -36,9 +39,24 @@ const renderWeather = function (weather) {
 
 const renderFutureWeather = function (weather) {
   weather.futureWeather.forEach(function (el, i) {
+    const dateParts = el.date.split("-");
+    let displayDate = el.date;
+    if (dateParts.length === 3) {
+      const dateObj = new Date(
+        Number(dateParts[0]),
+        Number(dateParts[1]) - 1,
+        Number(dateParts[2]),
+      );
+      if (!isNaN(dateObj.getTime())) {
+        let dayName = dateObj.toLocaleDateString("ru-RU", { weekday: "short" });
+        dayName = dayName.replace(".", "");
+        displayDate = dayName.charAt(0).toUpperCase() + dayName.slice(1);
+      }
+    }
+
     const html = `
     <div class="next-day-card">
-          <p class="day">${el.date}</p>
+          <p class="day">${displayDate}</p>
           <img src="${el.day.condition.icon}" alt="weather-next" />
           <p class="weather-next-day">${el.day.maxtemp_c}&#176;/${el.day.mintemp_c}&#176;</p>
         </div>

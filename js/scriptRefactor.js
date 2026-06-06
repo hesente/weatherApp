@@ -1,7 +1,7 @@
 "use strict";
-
-const API_KEY = "fdcf37dd48aa42d3a02144556262805";
-const API_KEY_GEO = "9d12bb45-7f4f-4eea-a5b2-6a931e02dcaf";
+/*
+const API_KEY = "your-api-key";
+const API_KEY_GEO = "your-api-key-geo";
 
 const elements = {
   container: document.querySelector(".container"),
@@ -130,3 +130,4 @@ const findLocation = async function () {
 
 elements.searchBtn.addEventListener("click", searchLocation);
 elements.geolocationBtn.addEventListener("click", findLocation);
+*/

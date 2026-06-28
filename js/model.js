@@ -2,6 +2,9 @@
 import View from "./view.js";
 import { API_KEY, API_KEY_GEO, REQUEST_TIMEOUT } from "./config.js";
 
+let currentWeather = null;
+let showHourly = true;
+
 export const fetchJSON = async function (url, errorMessage = "Request failed") {
   const controller = new AbortController();
 
@@ -37,7 +40,7 @@ export const getPosition = function () {
   });
 };
 
-export const getJSONWeatherByName = async function (query, days = 3) {
+export const getJSONWeatherByName = async function (query, days = 4) {
   try {
     const data = await fetchJSON(
       `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${query}&days=${days}&aqi=no&alerts=no`,
@@ -52,7 +55,7 @@ export const getJSONWeatherByName = async function (query, days = 3) {
   }
 };
 
-export const getJSONWeatherByCoords = async function (lat, long, days = 3) {
+export const getJSONWeatherByCoords = async function (lat, long, days = 4) {
   try {
     const data = await fetchJSON(
       `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${long}&days=${days}&aqi=no&alerts=no`,
@@ -75,5 +78,6 @@ export const createObjectCurrent = function (data) {
     weather: data.current.condition.text,
     weatherIcon: data.current.condition.icon,
     futureWeather: data.forecast.forecastday,
+    hourWeather: data.forecast.forecastday[0].hour,
   };
 };

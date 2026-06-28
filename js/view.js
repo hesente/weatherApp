@@ -7,6 +7,8 @@ class View {
     this.searchBtn = document.querySelector(".search-btn");
     this.geolocationBtn = document.querySelector(".btn-geolocation");
     this.futureContainer = document.querySelector(".future-days");
+    this.hourWeatherContainer = document.querySelector(".hour-weather");
+    this.buttonHourWeather = document.querySelector(".watch-hour-weather");
   }
   renderWeather(weather) {
     const html = `
@@ -27,12 +29,14 @@ class View {
           >${weather.windSpeed}
         </p>
       </div>
+
+      <button class="watch-hour-weather btn">смотреть прогноз на 3 дня</button>
   `;
     this.weatherContainer.insertAdjacentHTML("beforeEnd", html);
   }
 
   renderFutureWeather(weather) {
-    weather.futureWeather.forEach(
+    weather.futureWeather.slice(1).forEach(
       function (el, i) {
         const dateParts = el.date.split("-");
         let displayDate = el.date;
@@ -63,12 +67,36 @@ class View {
     );
   }
 
+  renderHourWeather(weather) {
+    const allHours = weather.hourWeather;
+    // console.log(allHours);
+    const hours3 = [allHours[7], allHours[14], allHours[21]];
+    // console.log(hours3);
+
+    hours3.forEach(
+      function (hours3) {
+        const html = `
+      <div class="next-day-card">
+          <p class="day">${hours3.time.split(" ")[1]}</p>
+          <img src="${hours3.condition.icon}" alt="weather-next" />
+          <p class="weather-next-day">${hours3.temp_c}</p>
+        </div>
+      `;
+
+        this.futureContainer.insertAdjacentHTML("beforeend", html);
+      }.bind(this),
+    );
+  }
+
   clearWeather() {
     const oldWeather = document.querySelector(".weather-data");
     const oldError = document.querySelector(".city");
 
     if (oldWeather) oldWeather.remove();
     if (oldError) oldError.remove();
+    this.futureContainer.innerHTML = "";
+    this.hourWeatherContainer.innerHTML = "";
+    this.weatherContainer.innerHTML = "";
   }
 
   renderError(message) {
@@ -78,8 +106,24 @@ class View {
     this.container.insertAdjacentHTML("beforeend", html);
   }
 
-  getFuture() {
-    console.log(futureContainer);
+  changeForecastButton(showHourly) {
+    const btn = document.querySelector(".watch-hour-weather");
+
+    if (!btn) return;
+
+    btn.textContent = showHourly
+      ? "Смотреть прогноз на 3 дня"
+      : "Смотреть почасовой прогноз";
+  }
+
+  addHandlerToggleForecast(handler) {
+    this.weatherContainer.addEventListener("click", function (e) {
+      const btn = e.target.closest(".watch-hour-weather");
+
+      if (!btn) return;
+
+      handler();
+    });
   }
 }
 

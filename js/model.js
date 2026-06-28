@@ -37,14 +37,7 @@ export const getPosition = function () {
   });
 };
 
-export const getCityByCoords = async function (latitude, longitude) {
-  return fetchJSON(
-    `https://catalog.api.2gis.com/3.0/items/geocode?lat=${latitude}&lon=${longitude}&fields=items.point&key=${API_KEY_GEO}`,
-    "Не удалось получить геоданные",
-  );
-};
-
-export const getJSONWeather = async function (query, days = 3) {
+export const getJSONWeatherByName = async function (query, days = 3) {
   try {
     const data = await fetchJSON(
       `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${query}&days=${days}&aqi=no&alerts=no`,
@@ -55,6 +48,22 @@ export const getJSONWeather = async function (query, days = 3) {
     return data;
   } catch (err) {
     View.renderError(err.message);
+    console.error(err);
+  }
+};
+
+export const getJSONWeatherByCoords = async function (lat, long, days = 3) {
+  try {
+    const data = await fetchJSON(
+      `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${long}&days=${days}&aqi=no&alerts=no`,
+      "Город не найден",
+    );
+
+    console.log(data);
+    return data;
+  } catch (err) {
+    View.renderError(err.message);
+    console.error(err);
   }
 };
 

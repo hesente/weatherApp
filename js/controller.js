@@ -7,7 +7,7 @@ import * as config from "./config.js";
 const searchLocation = async function () {
   try {
     const city = View.searchInput.value;
-    const dataCity = await model.getJSONWeather(city);
+    const dataCity = await model.getJSONWeatherByName(city);
     const weather = model.createObjectCurrent(dataCity);
     console.log(weather);
     View.clearWeather();
@@ -23,16 +23,14 @@ const findLocation = async function () {
   try {
     const pos = await model.getPosition();
     const { latitude, longitude } = pos.coords;
-    const response = await model.getCityByCoords(latitude, longitude);
-    const city = response.result.items[3].full_name;
-    const dataCity = await model.getJSONWeather(city);
+    const dataCity = await model.getJSONWeatherByCoords(latitude, longitude);
     const weather = model.createObjectCurrent(dataCity);
-
     View.clearWeather();
     View.renderWeather(weather);
     View.renderFutureWeather(weather);
   } catch (err) {
     renderError(err.message);
+    console.error(err);
   }
 };
 

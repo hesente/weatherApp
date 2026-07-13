@@ -1,0 +1,51 @@
+/*
+  Файл для переиспользуемых классов и классов для всех блоков
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "PostNoBillsJaffna", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* transition: all 1s ease; */
+}
+
+.hidden {
+  display: none;
+}
+
+.container {
+  width: 540px;
+  height: 540px;
+  padding: 50px;
+  background-color: #9eb2f7;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 4px -1px 69px 3px rgba(0, 0, 0, 0.12);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.btn-icon {
+  width: 24px;
+  height: 24px;
+  box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.btn-icon:hover {
+  transform: scale(1.2);
+}

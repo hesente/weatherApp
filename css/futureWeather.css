@@ -1,0 +1,16 @@
+/*
+  файл для редактирования блока будущей погоды
+*/
+
+.future-days {
+  box-shadow: 0px 16px 17px -7px rgba(34, 60, 80, 0.27) inset;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.next-day-card {
+  box-shadow: 0px 0px 50px 0px rgba(34, 60, 80, 0.3);
+  border-radius: 5px;
+}

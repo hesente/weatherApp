@@ -1,0 +1,30 @@
+/*
+файл для редактирования основного блока с текущей погодой
+*/
+
+.wind-icon {
+  width: 30px;
+}
+
+.temperature-icon {
+  width: 30px;
+}
+
+@keyframes fadeInWeather {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.weather-data {
+  animation: fadeInWeather 1s ease-out;
+  box-shadow: 0px 16px 17px -7px rgba(34, 60, 80, 0.27) inset;
+  padding: 10px;
+  border-radius: 5px;
+}

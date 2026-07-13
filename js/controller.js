@@ -11,8 +11,8 @@ const searchLocation = async function () {
     const weather = model.createObjectCurrent(dataCity);
     console.log(weather);
 
-    model.currentWeather = weather;
-    console.log(model.currentWeather);
+    model.state.currentWeather = weather;
+    console.log(model.state);
     model.showHourly = true;
     View.clearWeather();
     View.renderWeather(weather);
@@ -31,14 +31,16 @@ const findLocation = async function () {
     const dataCity = await model.getJSONWeatherByCoords(latitude, longitude);
     const weather = model.createObjectCurrent(dataCity);
     console.log(weather);
-    model.showHourly = true;
-    model.currentWeather = weather;
-    console.log(model.currentWeather);
+    // model.showHourly = true;
+    model.state.currentWeather = weather;
+    console.log(model.state);
 
     View.clearWeather();
-    View.renderWeather(weather);
-    if (model.showHourly === true) View.renderHourWeather(weather);
-    if (model.showHourly !== true) View.renderFutureWeather(weather);
+    View.renderWeather(model.state.currentWeather);
+    if (model.state.showHourly === true)
+      View.renderHourWeather(model.state.currentWeather);
+    if (model.state.showHourly !== true)
+      View.renderFutureWeather(model.state.currentWeather);
   } catch (err) {
     View.renderError(err.message);
     console.error(err);
@@ -70,3 +72,5 @@ View.searchInput.addEventListener("keydown", function (e) {
 
 View.searchBtn.addEventListener("click", searchLocation);
 View.addHandlerToggleForecast(toggleForecast);
+
+console.log(model.state);

@@ -1,0 +1,13 @@
+@font-face {
+  font-family: "PostNoBillsJaffna";
+  src: url("../fonts/PostNoBillsJaffna-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "PostNoBillsJaffnaBold";
+  src: url("../fonts/PostNoBillsJaffna-Bold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}

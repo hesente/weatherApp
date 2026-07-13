@@ -2,8 +2,10 @@
 import View from "./view.js";
 import { API_KEY, API_KEY_GEO, REQUEST_TIMEOUT } from "./config.js";
 
-let currentWeather = null;
-let showHourly = true;
+export let state = {
+  currentWeather: null,
+  showHourly: true,
+};
 
 export const fetchJSON = async function (url, errorMessage = "Request failed") {
   const controller = new AbortController();

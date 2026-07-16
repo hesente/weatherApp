@@ -4,7 +4,7 @@ class View {
     this.container = document.querySelector(".container");
     this.weatherContainer = document.querySelector(".weather-container");
     this.searchInput = document.querySelector(".search-input");
-    this.searchBtn = document.querySelector(".search-btn");
+    this.searchBtn = document.querySelector(".btn-search");
     this.geolocationBtn = document.querySelector(".btn-geolocation");
     this.futureContainer = document.querySelector(".future-days");
     this.hourWeatherContainer = document.querySelector(".hour-weather");

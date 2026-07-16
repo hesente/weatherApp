@@ -2,29 +2,60 @@
 файл для редактирования основного блока с текущей погодой
 */
 
+.weather-data {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1.5px solid #ffffff96;
+  border-radius: 10px;
+}
+
+.current-weather-top {
+  display: grid;
+  grid-template-columns: 1fr 2.5fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.weather-icon {
+  width: 100%;
+}
+
+.city {
+  font-weight: 600;
+  font-size: 32px;
+  color: #001356;
+  height: 43px;
+}
+
+.will-it-rain {
+  font-size: 11px;
+}
+
+.temperature {
+  background: rgba(203, 214, 255, 0.3);
+  border: 1px solid #fff;
+  text-align: center;
+  height: 60px;
+  border-radius: 15px;
+  font-size: 48px;
+}
+
+.gradus {
+  width: 0;
+  height: 0;
+}
+
+.weather {
+  margin-right: 5px;
+  font-size: 13px;
+  margin-bottom: 17px;
+  text-align: center;
+}
+
 .wind-icon {
-  width: 30px;
+  width: 15px;
 }
 
 .temperature-icon {
-  width: 30px;
-}
-
-@keyframes fadeInWeather {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.weather-data {
-  animation: fadeInWeather 1s ease-out;
-  box-shadow: 0px 16px 17px -7px rgba(34, 60, 80, 0.27) inset;
-  padding: 10px;
-  border-radius: 5px;
+  width: 15px;
 }

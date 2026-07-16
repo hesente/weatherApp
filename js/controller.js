@@ -13,7 +13,7 @@ const searchLocation = async function () {
 
     model.state.currentWeather = weather;
     console.log(model.state);
-    model.showHourly = true;
+    model.state.showHourly = true;
     View.clearWeather();
     View.renderWeather(weather);
     if (model.showHourly === true) View.renderHourWeather(weather);

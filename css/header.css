@@ -9,17 +9,42 @@
 
 .btn {
   background: none;
-  border: 1px solid #9eb2f7;
+  border: none;
+  transition: all 0.3s ease-out;
 }
 
-.btn-geolocation {
-  background: none;
-  border: 1px solid #9eb2f7;
-  border-radius: 3px;
+.btn:hover {
+  transform: scale(1.2);
 }
 
+.btn-icon {
+  border: 1.5px solid #ffffff96;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.btn-icon:active {
+  background-color: #afbef7;
+}
 .search-input {
-  background-color: #f0f3ff;
+  width: 320px;
+  height: 30px;
+  background: #afbef7;
   margin: 0 5px;
-  box-shadow: 0px 0px 17px 3px rgba(34, 60, 80, 0.15);
+  border-radius: 10px;
+  border: 1px solid #ffffff56;
+  text-align: center;
+}
+
+.search-input::placeholder {
+  transition: color 0.2s ease;
+  color: #001356;
+}
+.search-input:focus {
+  outline: none;
+}
+
+.search-input:focus::placeholder {
+  color: #afbef7;
+  border: none;
 }

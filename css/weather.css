@@ -52,10 +52,56 @@
   text-align: center;
 }
 
+.weather-icon {
+  transform: scale(1.2);
+}
+
 .wind-icon {
   width: 15px;
+  margin-right: 3px;
 }
 
 .temperature-icon {
   width: 15px;
+}
+
+.current-weather-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.hours-weather-container {
+  border-radius: 5px;
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.feels-wind-container {
+  align-content: center;
+}
+
+.feels-like {
+  margin-bottom: 10px;
+}
+
+.wind {
+  margin-top: 3px;
+}
+
+.wind-container-flex {
+  display: flex;
+}
+
+.hours-weather-card {
+  border-radius: 15px;
+  border: 1.5px solid #ffffff96;
+  width: 80px;
+  background-color: #cbd6ff4d;
+  height: 100px;
+}
+
+.weather-img {
+  width: 60%;
 }

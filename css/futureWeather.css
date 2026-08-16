@@ -2,10 +2,139 @@
   файл для редактирования блока будущей погоды
 */
 
-.future-days {
-  border-radius: 5px;
+.future-days-weather {
   display: flex;
-  gap: 15px;
   justify-content: space-between;
-  text-align: center;
 }
+
+.future-days-card {
+  border-radius: 15px;
+  border: 1.5px solid #ffffff96;
+  width: 80px;
+  height: 105px;
+  background-color: #cbd6ff4d;
+}
+
+.day-of-week {
+  margin-top: 7px;
+  margin-left: 5px;
+}
+
+.future-days-card img {
+  width: 35px;
+}
+
+.day-weather {
+  display: flex;
+  justify-content: space-between;
+}
+
+.future-hoursly-row {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.future-hoursly-row img {
+  width: 15px;
+}
+
+/*
+<div class="next-day-card">
+          <p class="day">mon</p>
+          <img src="images/116.png" alt="weather-next" />
+          <div class="weather-table">
+            <p class="future-days-time">7:00</p>
+            <p class="weather-next-day">16&#176;</p>
+            <img
+              src="images/116.png"
+              alt="weather-today"
+              class="weather-icon-mini"
+            />
+          </div>
+          <div class="weather-table">
+            <p class="future-days-time">14:00</p>
+            <p class="weather-next-day">14&#176;</p>
+            <img
+              src="images/116.png"
+              alt="weather-today"
+              class="weather-icon-mini"
+            />
+          </div>
+          <div class="weather-table">
+            <p class="future-days-time">7:00</p>
+            <p class="weather-next-day">14&#176;</p>
+            <img
+              src="images/116.png"
+              alt="weather-today"
+              class="weather-icon-mini"
+            />
+          </div>
+        </div>
+
+        <div class="next-day-card">
+          <p class="day">mon</p>
+          <img src="images/116.png" alt="weather-next" />
+          <div class="weather-table">
+            <p class="future-days-time">7:00</p>
+            <p class="weather-next-day">16&#176;</p>
+            <img
+              src="images/116.png"
+              alt="weather-today"
+              class="weather-icon-mini"
+            />
+          </div>
+          <div class="weather-table">
+            <p class="future-days-time">14:00</p>
+            <p class="weather-next-day">14&#176;</p>
+            <img
+              src="images/116.png"
+              alt="weather-today"
+              class="weather-icon-mini"
+            />
+          </div>
+          <div class="weather-table">
+            <p class="future-days-time">7:00</p>
+            <p class="weather-next-day">14&#176;</p>
+            <img
+              src="images/116.png"
+              alt="weather-today"
+              class="weather-icon-mini"
+            />
+          </div>
+        </div>
+
+        <div class="next-day-card">
+          <p class="day">mon</p>
+          <img src="images/116.png" alt="weather-next" />
+          <div class="weather-table">
+            <p class="future-days-time">7:00</p>
+            <p class="weather-next-day">16&#176;</p>
+            <img
+              src="images/116.png"
+              alt="weather-today"
+              class="weather-icon-mini"
+            />
+          </div>
+          <div class="weather-table">
+            <p class="future-days-time">14:00</p>
+            <p class="weather-next-day">14&#176;</p>
+            <img
+              src="images/116.png"
+              alt="weather-today"
+              class="weather-icon-mini"
+            />
+          </div>
+          <div class="weather-table">
+            <p class="future-days-time">7:00</p>
+            <p class="weather-next-day">14&#176;</p>
+            <img
+              src="images/116.png"
+              alt="weather-today"
+              class="weather-icon-mini"
+            />
+          </div>
+        </div>
+      </div>
+      */

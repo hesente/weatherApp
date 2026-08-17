@@ -9,10 +9,10 @@ const searchLocation = async function () {
     const city = View.searchInput.value;
     const dataCity = await model.getJSONWeatherByName(city);
     const weather = model.createObjectCurrent(dataCity);
-    console.log(weather);
+    // console.log(weather);
 
     model.state.currentWeather = weather;
-    console.log(model.state);
+    console.log("Это state", model.state);
     model.state.showHourly = true;
     View.clearWeather();
     View.renderWeather(weather);
@@ -30,10 +30,10 @@ const findLocation = async function () {
     const { latitude, longitude } = pos.coords;
     const dataCity = await model.getJSONWeatherByCoords(latitude, longitude);
     const weather = model.createObjectCurrent(dataCity);
-    console.log(weather);
+    // console.log(weather);
     // model.showHourly = true;
     model.state.currentWeather = weather;
-    console.log(model.state);
+    console.log("Это state", model.state);
 
     View.clearWeather();
     View.renderWeather(model.state.currentWeather);
@@ -73,4 +73,12 @@ View.searchInput.addEventListener("keydown", function (e) {
 View.searchBtn.addEventListener("click", searchLocation);
 View.addHandlerToggleForecast(toggleForecast);
 
-console.log(model.state);
+const testFuncton = async function () {
+  const res = await fetch(
+    `http://api.weatherapi.com/v1/forecast.json?key=fdcf37dd48aa42d3a02144556262805&q=London&days=5&aqi=no&alerts=no`,
+  );
+  const data = await res.json();
+  console.log(`test function`, data);
+};
+
+testFuncton();

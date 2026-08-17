@@ -49,7 +49,7 @@ export const getJSONWeatherByName = async function (query, days = 4) {
       "Город не найден",
     );
 
-    console.log(data);
+    console.log("Это ответ API погоды", data);
     return data;
   } catch (err) {
     View.renderError(err.message);
@@ -64,7 +64,7 @@ export const getJSONWeatherByCoords = async function (lat, long, days = 4) {
       "Город не найден",
     );
 
-    console.log(data);
+    console.log("Это ответ от API погоды", data);
     return data;
   } catch (err) {
     View.renderError(err.message);
@@ -81,5 +81,8 @@ export const createObjectCurrent = function (data) {
     weatherIcon: data.current.condition.icon,
     futureWeather: data.forecast.forecastday,
     hourWeather: data.forecast.forecastday[0].hour,
+    feelsLike: data.current.feelslike_c,
+    willItRain: data.current.will_it_rain,
+    willItSnow: data.current.will_it_snow,
   };
 };

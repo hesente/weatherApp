@@ -42,10 +42,18 @@ export const getPosition = function () {
   });
 };
 
+const getFutureDate = function (days) {
+  const date = new Date();
+
+  date.setDate(date.getDate() + days);
+
+  return date.toISOString().split("T")[0];
+};
+
 export const getJSONWeatherByName = async function (query, days = 4) {
   try {
     const data = await fetchJSON(
-      `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${query}&days=${days}&aqi=no&alerts=no`,
+      `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${query}&days=${days}&aqi=no&alerts=yes`,
       "Город не найден",
     );
 
@@ -57,10 +65,24 @@ export const getJSONWeatherByName = async function (query, days = 4) {
   }
 };
 
+export const getWeatherByDate = async function (query, date) {
+  try {
+    const data = await fetchJSON(
+      `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${query}&dt=${date}&aqi=no&alerts=yes`,
+      "Не удалось получить прогноз",
+    );
+
+    return data;
+  } catch (err) {
+    View.renderError(err.message);
+    console.error(err);
+  }
+};
+
 export const getJSONWeatherByCoords = async function (lat, long, days = 4) {
   try {
     const data = await fetchJSON(
-      `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${long}&days=${days}&aqi=no&alerts=no`,
+      `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${long}&days=${days}&aqi=no&alerts=yes`,
       "Город не найден",
     );
 
@@ -70,6 +92,67 @@ export const getJSONWeatherByCoords = async function (lat, long, days = 4) {
     View.renderError(err.message);
     console.error(err);
   }
+};
+
+export const getWeatherByDateCoords = async function (lat, long, date) {
+  try {
+    const data = await fetchJSON(
+      `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${long}&dt=${date}&aqi=no&alerts=yes`,
+      "Не удалось получить прогноз",
+    );
+
+    return data;
+  } catch (err) {
+    View.renderError(err.message);
+    console.error(err);
+  }
+};
+
+export const getExtendedWeatherByCoords = async function (lat, long) {
+  const date4 = getFutureDate(3);
+  const date5 = getFutureDate(4);
+
+  const [firstForecast, forecast4, forecast5] = await Promise.all([
+    getJSONWeatherByCoords(lat, long, 3),
+    getWeatherByDateCoords(lat, long, date4),
+    getWeatherByDateCoords(lat, long, date5),
+  ]);
+
+  return {
+    ...firstForecast,
+    forecast: {
+      ...firstForecast.forecast,
+      forecastday: [
+        ...firstForecast.forecast.forecastday,
+        ...forecast4.forecast.forecastday,
+        ...forecast5.forecast.forecastday,
+      ],
+    },
+  };
+};
+
+export const getExtendedWeatherByName = async function (query) {
+  const firstForecast = await getJSONWeatherByName(query, 3);
+
+  const date4 = getFutureDate(3);
+  const date5 = getFutureDate(4);
+
+  const [forecast4, forecast5] = await Promise.all([
+    getWeatherByDate(query, date4),
+    getWeatherByDate(query, date5),
+  ]);
+
+  return {
+    ...firstForecast,
+    forecast: {
+      ...firstForecast.forecast,
+      forecastday: [
+        ...firstForecast.forecast.forecastday,
+        ...forecast4.forecast.forecastday,
+        ...forecast5.forecast.forecastday,
+      ],
+    },
+  };
 };
 
 export const createObjectCurrent = function (data) {

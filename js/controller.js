@@ -16,10 +16,13 @@ const searchLocation = async function () {
     model.state.showHourly = true;
     View.clearWeather();
     View.renderWeather(weather);
+    /*
     if (model.showHourly === true) View.renderHourWeather(weather);
     if (model.showHourly !== true) View.renderFutureWeather(weather);
+    */
   } catch (err) {
     console.error(err);
+    ну;
     View.renderError(err.message);
   }
 };
@@ -39,11 +42,14 @@ const findLocation = async function () {
     console.log("Это state", model.state);
 
     View.clearWeather();
-    View.renderWeather(model.state.currentWeather);
+    View.renderWeather(model.state);
+    View.renderCurrentHourslyWeather(model.state);
+    /*
     if (model.state.showHourly === true)
       View.renderHourWeather(model.state.currentWeather);
     if (model.state.showHourly !== true)
       View.renderFutureWeather(model.state.currentWeather);
+    */
   } catch (err) {
     View.renderError(err.message);
     console.error(err);

@@ -14,8 +14,10 @@ const searchLocation = async function () {
     model.state.currentWeather = weather;
     console.log("Это state", model.state);
     model.state.showHourly = true;
-    View.clearWeather();
-    View.renderWeather(weather);
+    // View.clearWeather();
+    View.renderWeather(model.state);
+    View.renderCurrentHourslyWeather(model.state);
+    View.renderFutureWeatherCrutch(model.state);
     /*
     if (model.showHourly === true) View.renderHourWeather(weather);
     if (model.showHourly !== true) View.renderFutureWeather(weather);
@@ -41,9 +43,10 @@ const findLocation = async function () {
     model.state.currentWeather = weather;
     console.log("Это state", model.state);
 
-    View.clearWeather();
+    // View.clearWeather();
     View.renderWeather(model.state);
     View.renderCurrentHourslyWeather(model.state);
+    View.renderFutureWeatherCrutch(model.state);
     /*
     if (model.state.showHourly === true)
       View.renderHourWeather(model.state.currentWeather);
@@ -81,15 +84,3 @@ View.searchInput.addEventListener("keydown", function (e) {
 
 View.searchBtn.addEventListener("click", searchLocation);
 View.addHandlerToggleForecast(toggleForecast);
-
-/*
-const testFuncton = async function () {
-  const res = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=45.2113&longitude=39.5671&daily=temperature_2m_max,temperature_2m_min&hourly=temperature_2m,apparent_temperature,precipitation,wind_speed_10m&models=dwd_icon_seamless&current=precipitation&timezone=Europe%2FMoscow&forecast_days=7`,
-  );
-  const data = await res.json();
-  console.log(`test function`, data);
-};
-
-testFuncton();
-*/

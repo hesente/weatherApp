@@ -2,34 +2,38 @@
 class View {
   constructor() {
     this.container = document.querySelector(".container");
-    this.weatherContainer = document.querySelector(".weather-container");
+    this.weatherContainer = document.querySelector(".weather-data");
+    this.currentWeatherGrid = document.querySelector(".current-weather-grid");
     this.searchInput = document.querySelector(".search-input");
     this.searchBtn = document.querySelector(".btn-search");
     this.geolocationBtn = document.querySelector(".btn-geolocation");
     this.futureContainer = document.querySelector(".future-days");
     this.buttonHourWeather = document.querySelector(".watch-hour-weather");
-    this.currentWeatherGrid = document.querySelector(".current-weather-grid");
+    this.futureDaysWeatherContainer = document.querySelector(
+      ".future-days-weather",
+    );
   }
 
   renderWeather(weather) {
-    const message = this.precipitation(weather);
-
     const html = `
-    <div class="weather-data">
-          <div class="current-weather-top">
+      <div class="current-weather-top">
             <img src="${weather.currentWeather.weatherIcon}" alt="weather_icon" class="weather-icon" />
             <div>
               <h4 class="city">${weather.currentWeather.city}</h4>
-              <p class="will-it-rain">${message}</p>
+              <p class="will-it-rain">В ближайшее время осадков не ожидается</p>
             </div>
             <div class="temperature-container">
               <p class="temperature">${weather.currentWeather.temperature}<span class="gradus">&deg;</span></p>
-              <p class="weather">Солнечно</p>
+              <p class="weather">${weather.currentWeather.weather}</p>
             </div>
-          </div>
+          
+  `;
+    this.weatherContainer.insertAdjacentHTML("afterbegin", html);
+  }
 
-          <div class="current-weather-grid">
-            <div class="feels-wind-container">
+  renderCurrentHourslyWeather(weather) {
+    const html = `
+    <div class="feels-wind-container">
               <p class="feels-like">
                 <span class="feels-like-icon"
                   ><svg
@@ -67,26 +71,10 @@ class View {
                 <p class="wind">${weather.currentWeather.windSpeed} м/с</p>
               </div>
             </div>
-          </div>
-        </div>
-  `;
-    this.weatherContainer.insertAdjacentHTML("beforeEnd", html);
-  }
 
-  precipitation(weather) {
-    if (weather.currentWeather.willItRain === 0) {
-      return "в ближайшее время осадков не ожидается";
-    }
-
-    if (weather.currentWeather.willItRain !== 0) {
-      return "в ближайшее время ожидаются осадки";
-    }
-  }
-
-  renderCurrentHourslyWeather(weather) {
-    const html = `
+            <div class="hours-weather-container">
               <div class="hours-weather-card">
-                <p class="day">7:00</p>
+                <p class="day">07:00</p>
                 <img
                   src="${weather.currentWeather.hourWeather[7].condition.icon}"
                   alt="weather-next"
@@ -108,16 +96,16 @@ class View {
               <div class="hours-weather-card">
                 <p class="day">21:00</p>
                 <img
-                  src="${weather.currentWeather.hourWeather[21].temp_c}"
+                  src="${weather.currentWeather.hourWeather[21].condition.icon}"
                   alt="weather-next"
-                  class=${weather.currentWeather.hourWeather[21].temp_c}"
+                  class="weather-img"
                 />
-                <p class="weather-next-day">14&#176;</p>
+                <p class="weather-next-day">${weather.currentWeather.hourWeather[21].temp_c}&#176;</p>
               </div>
-            
+            </div>
     `;
 
-    this.weatherContainer.insertAdjacentHTML("beforeend", html);
+    this.currentWeatherGrid.insertAdjacentHTML("beforeend", html);
   }
 
   renderFutureWeather(weather) {
@@ -150,6 +138,161 @@ class View {
         this.futureContainer.insertAdjacentHTML("beforeend", html);
       }.bind(this),
     );
+  }
+
+  renderFutureWeatherCrutch(weather) {
+    const html = `
+     <div class="future-days-card">
+          <div class="day-weather">
+            <p class="day-of-week">Пн</p>
+            <img
+              src="${weather.currentWeather.futureWeather[1].hour[14].condition.icon}"
+              alt="weather-next"
+              class="future-weather-img"
+            />
+          </div>
+          <div class="future-hoursly-row">
+            <p>7:00</p>
+            <p>${weather.currentWeather.futureWeather[1].hour[7].temp_c}&#176;</p>
+            <img
+              src="${weather.currentWeather.futureWeather[1].hour[7].condition.icon}"
+              alt="weather-next"
+              class="future-weather-img"
+            />
+          </div>
+          <div class="future-hoursly-row">
+            <p>14:00</p>
+            <p>${weather.currentWeather.futureWeather[1].hour[14].temp_c}&#176;</p>
+            <img
+              src="${weather.currentWeather.futureWeather[1].hour[14].condition.icon}"
+              alt="weather-next"
+              class="future-weather-img"
+            />
+          </div>
+          <div class="future-hoursly-row">
+            <p>21:00</p>
+            <p>${weather.currentWeather.futureWeather[1].hour[21].temp_c}&#176;</p>
+            <img
+              src="${weather.currentWeather.futureWeather[1].hour[21].condition.icon}"
+              alt="weather-next"
+              class="future-weather-img"
+            />
+          </div>
+        </div>
+        <div class="future-days-card">
+          <div class="day-weather">
+            <p class="day-of-week">Пн</p>
+            <img
+              src="${weather.currentWeather.futureWeather[2].hour[14].condition.icon}"
+              alt="weather-next"
+              class="future-weather-img"
+            />
+          </div>
+          <div class="future-hoursly-row">
+            <p>7:00</p>
+            <p>${weather.currentWeather.futureWeather[2].hour[7].temp_c}&#176;</p>
+            <img
+              src="${weather.currentWeather.futureWeather[2].hour[7].condition.icon}"
+              alt="weather-next"
+              class="future-weather-img"
+            />
+          </div>
+          <div class="future-hoursly-row">
+            <p>14:00</p>
+            <p>${weather.currentWeather.futureWeather[2].hour[14].temp_c}&#176;</p>
+            <img
+              src="${weather.currentWeather.futureWeather[2].hour[14].condition.icon}"
+              alt="weather-next"
+              class="future-weather-img"
+            />
+          </div>
+          <div class="future-hoursly-row">
+            <p>21:00</p>
+            <p>${weather.currentWeather.futureWeather[2].hour[21].temp_c}&#176;</p>
+            <img
+              src="${weather.currentWeather.futureWeather[2].hour[21].condition.icon}"
+              alt="weather-next"
+              class="future-weather-img"
+            />
+          </div>
+        </div>
+        <div class="future-days-card">
+          <div class="day-weather">
+            <p class="day-of-week">Пн</p>
+            <img
+              src="${weather.currentWeather.futureWeather[3].hour[14].condition.icon}"
+              alt="weather-next"
+              class="future-weather-img"
+            />
+          </div>
+          <div class="future-hoursly-row">
+            <p>7:00</p>
+            <p>${weather.currentWeather.futureWeather[3].hour[7].temp_c}&#176;</p>
+            <img
+              src="${weather.currentWeather.futureWeather[3].hour[7].condition.icon}"
+              alt="weather-next"
+              class="future-weather-img"
+            />
+          </div>
+          <div class="future-hoursly-row">
+            <p>14:00</p>
+            <p>${weather.currentWeather.futureWeather[3].hour[14].temp_c}&#176;</p>
+            <img
+              src="${weather.currentWeather.futureWeather[3].hour[14].condition.icon}"
+              alt="weather-next"
+              class="future-weather-img"
+            />
+          </div>
+          <div class="future-hoursly-row">
+            <p>21:00</p>
+            <p>${weather.currentWeather.futureWeather[3].hour[21].temp_c}&#176;</p>
+            <img
+              src="${weather.currentWeather.futureWeather[3].hour[21].condition.icon}"
+              alt="weather-next"
+              class="future-weather-img"
+            />
+          </div>
+        </div>
+        <div class="future-days-card">
+          <div class="day-weather">
+            <p class="day-of-week">Пн</p>
+            <img
+              src="${weather.currentWeather.futureWeather[4].hour[14].condition.icon}"
+              alt="weather-next"
+              class="future-weather-img"
+            />
+          </div>
+          <div class="future-hoursly-row">
+            <p>7:00</p>
+            <p>${weather.currentWeather.futureWeather[4].hour[7].temp_c}&#176;</p>
+            <img
+              src="${weather.currentWeather.futureWeather[4].hour[7].condition.icon}"
+              alt="weather-next"
+              class="future-weather-img"
+            />
+          </div>
+          <div class="future-hoursly-row">
+            <p>14:00</p>
+            <p>${weather.currentWeather.futureWeather[4].hour[14].temp_c}&#176;</p>
+            <img
+              src="${weather.currentWeather.futureWeather[4].hour[14].condition.icon}"
+              alt="weather-next"
+              class="future-weather-img"
+            />
+          </div>
+          <div class="future-hoursly-row">
+            <p>21:00</p>
+            <p>${weather.currentWeather.futureWeather[4].hour[21].temp_c}&#176;</p>
+            <img
+              src="${weather.currentWeather.futureWeather[4].hour[21].condition.icon}"
+              alt="weather-next"
+              class="future-weather-img"
+            />
+          </div>
+        </div>
+    `;
+
+    this.futureDaysWeatherContainer.insertAdjacentHTML("beforeend", html);
   }
 
   /*

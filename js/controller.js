@@ -84,3 +84,5 @@ View.searchInput.addEventListener("keydown", function (e) {
 
 View.searchBtn.addEventListener("click", searchLocation);
 View.addHandlerToggleForecast(toggleForecast);
+
+//test commit//
